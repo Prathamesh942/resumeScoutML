@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Ranking Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .fit {
+            color: green;
+            font-weight: bold;
+        }
+        .medium-fit {
+            color: orange;
+            font-weight: bold;
+        }
+        .not-fit {
+            color: red;
+            font-weight: bold;
+        }
+        .similarity {
+            color: #333;
+        }
+        .category {
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Resume Ranking Results</h1>
+        <table>
+            <tr>
+                <th>Resume</th>
+                <th>Fit Status</th>
+                <th>Similarity Score</th>
+                <th>Predicted Category</th>
+            </tr>
+            {% for resume, fit_status, similarity_score, category in results %}
+            <tr>
+                <td>{{ resume }}</td>
+                <td class="{{ 'fit' if fit_status == 'Fit' else ('medium-fit' if fit_status == 'Medium Fit' else 'not-fit') }}">
+                    {{ fit_status }}
+                </td>
+                <td class="similarity">{{ (similarity_score * 100) | round(2) }}%</td>
+                <td class="category">{{ category }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+</html>
